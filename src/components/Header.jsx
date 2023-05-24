@@ -1,7 +1,6 @@
 import { TbBusinessplan } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
-import { connectWallet } from '../services/blockchain'
-import { truncate, useGlobalState } from '../store'
+import { useGlobalState } from '../store'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 const Header = () => {

@@ -9,6 +9,8 @@ import { useGlobalState } from '../store'
 const Home = () => {
   const [projects] = useGlobalState('projects')
 
+  
+
   useEffect(async () => {
     await loadProjects()
   }, [])
