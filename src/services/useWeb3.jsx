@@ -1,14 +1,8 @@
-import React, {
-	createContext,
-	useContext,
-	useState,
-	useEffect,
-	Children,
-} from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import abi from "../abis/src/contracts/Gnobacker.sol/Gnobacker.json";
 import { getGlobalState, setGlobalState } from "../store";
 import { ethers } from "ethers";
-import { getAccount, getProvider, fetchSigner } from "@wagmi/core";
+import { getAccount, fetchSigner, getContract, getProvider } from "@wagmi/core";
 
 const Web3Context = createContext({});
 
@@ -16,13 +10,33 @@ export const Web3ContextProvider = ({ children }) => {
 	//Getting the Connected Address and saving in State
 	const account = getAccount();
 	const connectedAddress = account.address;
-
+	setGlobalState("connectedAccount", connectedAddress?.toLowerCase());
 	const contractAddress = "0xA8C1bD140c79d2691F81De4288dEB6f96df035D9";
 	const contractAbi = abi.abi;
 
+	const getEthereumContractProvider = async () => {
+		const provider = getProvider();
+
+		const contract = getContract({
+			address: contractAddress,
+			abi: contractAbi,
+			signerOrProvider: provider,
+		});
+
+		setGlobalState("contract", contract);
+
+		return contract;
+	};
 	const getEthereumContract = async () => {
-		const signer = await fetchSigner();
-		const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+		const signer = await fetchSigner();;
+
+		const contract = getContract({
+			address: contractAddress,
+			abi: contractAbi,
+			signerOrProvider: signer,
+		});
+
+		setGlobalState("contract", contract);
 
 		return contract;
 	};
@@ -35,14 +49,8 @@ export const Web3ContextProvider = ({ children }) => {
 		expiresAt,
 	}) => {
 		try {
-			console.log("contract", getEthereumContract());
-
 			const contract = await getEthereumContract();
-
 			setGlobalState("contract", contract);
-
-			console.log("contract2", contract);
-
 			cost = ethers.utils.parseEther(cost);
 
 			const tx = await contract.createProject(
@@ -68,8 +76,6 @@ export const Web3ContextProvider = ({ children }) => {
 		expiresAt,
 	}) => {
 		try {
-			if (!ethereum) return alert("Please install Metamask");
-
 			const contract = await getEthereumContract();
 			tx = await contract.updateProject(
 				id,
@@ -87,85 +93,8 @@ export const Web3ContextProvider = ({ children }) => {
 
 	const deleteProject = async (id) => {
 		try {
-			if (!ethereum) return alert("Please install Metamask");
 			const contract = await getEthereumContract();
 			await contract.deleteProject(id);
-		} catch (error) {
-			reportError(error);
-		}
-	};
-
-	const loadProjects = async () => {
-		try {
-			if (!ethereum) return alert("Please install Metamask");
-
-			const contract = await getEthereumContract();
-			const projects = await contract.getProjects();
-			const stats = await contract.stats();
-
-			setGlobalState("stats", structureStats(stats));
-			setGlobalState("projects", structuredProjects(projects));
-		} catch (error) {
-			reportError(error);
-		}
-	};
-
-	const loadProject = async (id) => {
-		try {
-			if (!ethereum) return alert("Please install Metamask");
-			const contract = await getEthereumContract();
-			const project = await contract.getProject(id);
-
-			setGlobalState("project", structuredProjects([project])[0]);
-		} catch (error) {
-			alert(JSON.stringify(error.message));
-			reportError(error);
-		}
-	};
-
-	const backProject = async (id, amount) => {
-		try {
-			if (!ethereum) return alert("Please install Metamask");
-			const connectedAccount = getGlobalState("connectedAccount");
-			const contract = await getEthereumContract();
-			amount = ethers.utils.parseEther(amount);
-
-			tx = await contract.backProject(id, {
-				from: connectedAccount,
-				value: amount._hex,
-			});
-
-			await tx.wait();
-			await getBackers(id);
-		} catch (error) {
-			reportError(error);
-		}
-	};
-
-	const getBackers = async (id) => {
-		try {
-			if (!ethereum) return alert("Please install Metamask");
-			const contract = await getEthereumContract();
-			let backers = await contract.getBackers(id);
-
-			setGlobalState("backers", structuredBackers(backers));
-		} catch (error) {
-			reportError(error);
-		}
-	};
-
-	const payoutProject = async (id) => {
-		try {
-			if (!ethereum) return alert("Please install Metamask");
-			const connectedAccount = getGlobalState("connectedAccount");
-			const contract = await getEthereumContract();
-
-			tx = await contract.payOutProject(id, {
-				from: connectedAccount,
-			});
-
-			await tx.wait();
-			await getBackers(id);
 		} catch (error) {
 			reportError(error);
 		}
@@ -199,6 +128,76 @@ export const Web3ContextProvider = ({ children }) => {
 			}))
 			.reverse();
 
+	const loadProjects = async () => {
+		try {
+			const contract = await getEthereumContractProvider();
+			const projects = await contract.getProjects();
+			const stats = await contract.stats();
+
+			setGlobalState("stats", structureStats(stats));
+			setGlobalState("projects", structuredProjects(projects));
+		} catch (error) {
+			reportError(error);
+		}
+	};
+
+	const loadProject = async (id) => {
+		try {
+			const contract = await getEthereumContractProvider();
+			const project = await contract.getProject(id);
+
+			setGlobalState("project", structuredProjects([project])[0]);
+		} catch (error) {
+			alert(JSON.stringify(error.message));
+			reportError(error);
+		}
+	};
+
+	const backProject = async (id, amount) => {
+		try {
+			const connectedAccount = getGlobalState("connectedAccount");
+			const contract = await getEthereumContract();
+			amount = ethers.utils.parseEther(amount);
+
+			tx = await contract.backProject(id, {
+				from: connectedAccount,
+				value: amount._hex,
+			});
+
+			await tx.wait();
+			await getBackers(id);
+		} catch (error) {
+			reportError(error);
+		}
+	};
+
+	const getBackers = async (id) => {
+		try {
+			const contract = await getEthereumContract();
+			let backers = await contract.getBackers(id);
+
+			setGlobalState("backers", structuredBackers(backers));
+		} catch (error) {
+			reportError(error);
+		}
+	};
+
+	const payoutProject = async (id) => {
+		try {
+			const connectedAccount = getGlobalState("connectedAccount");
+			const contract = await getEthereumContract();
+
+			tx = await contract.payOutProject(id, {
+				from: connectedAccount,
+			});
+
+			await tx.wait();
+			await getBackers(id);
+		} catch (error) {
+			reportError(error);
+		}
+	};
+
 	const toDate = (timestamp) => {
 		const date = new Date(timestamp);
 		const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
@@ -215,14 +214,23 @@ export const Web3ContextProvider = ({ children }) => {
 	});
 
 	const reportError = (error) => {
-		console.log(error.message);
-		throw new Error("No ethereum object.");
+		console.log(error);
 	};
 
 	return (
 		<Web3Context.Provider
 			value={{
+				getEthereumContract,
 				createProject,
+				updateProject,
+				deleteProject,
+				loadProjects,
+				loadProject,
+				backProject,
+				getBackers,
+				payoutProject,
+				structuredBackers,
+				structuredProjects,
 			}}
 		>
 			{children}
@@ -235,6 +243,5 @@ export const useWeb3 = () => {
 	if (context == undefined) {
 		throw new Error("useWeb3 must be used within Web3ContextProvider");
 	}
-
 	return context;
 };
