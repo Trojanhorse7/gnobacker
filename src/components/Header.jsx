@@ -1,30 +1,28 @@
-import { TbBusinessplan } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
-import { useGlobalState } from '../store'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { Link } from "react-router-dom";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import fullLogo from "../assets/FULLLOGO.png";
 
 const Header = () => {
-  const [connectedAccount] = useGlobalState('connectedAccount')
-
-  return (
-    <header
-      className="flex justify-between items-center
-        p-5 bg-white shadow-lg fixed top-0 left-0 right-0"
-    >
-      <Link
-        to="/"
-        className="flex justify-start items-center
+	return (
+		<header
+			className="flex justify-center items-center
+        p-5 h-[5rem] bg-green-200 shadow-lg fixed top-0 left-0 right-0 py-[0.8rem] w-[100%]"
+		>
+			<div className="w-[80%] max-[700px]:w-[100%] flex justify-between items-center">
+				<Link
+					to="/"
+					className="flex justify-start items-center
       text-xl text-black space-x-1"
-      >
-        <span>GnoBacker</span>
-        <TbBusinessplan />
-      </Link>
+				>
+					<img src={fullLogo} alt="Logo" className="h-[3rem]" />
+				</Link>
 
-      <div className="flex space-x-2 justify-center">
-        <ConnectButton />
-      </div>
-    </header>
-  )
-}
+				<div className="flex space-x-2 justify-center">
+					<ConnectButton />
+				</div>
+			</div>
+		</header>
+	);
+};
 
-export default Header
+export default Header;
