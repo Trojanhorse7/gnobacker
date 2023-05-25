@@ -8,6 +8,7 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
   backModal: 'scale-0',
   connectedAccount: '',
   contract: {},
+  signer: {},
   projects: [],
   project: null,
   stats: null,
