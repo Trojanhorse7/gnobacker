@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
-// import { createProject } from '../services/blockchain'
 import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
 
