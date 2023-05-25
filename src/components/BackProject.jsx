@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { backProject } from '../services/blockchain'
+import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from '../store'
 
 const BackProject = ({ project }) => {
   const [backModal] = useGlobalState('backModal')
   const [amount, setAmount] = useState('')
+  const { backProject } = useWeb3();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!amount) return
 
-    await backProject(project?.id, amount)
+    const backed = await backProject(project?.id, amount)
+    console.log(backed);
     toast.success('Project backed successfully, will reflect in 30sec.')
     setGlobalState('backModal', 'scale-0')
   }
