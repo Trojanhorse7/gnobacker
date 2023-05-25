@@ -90,7 +90,12 @@ const App = () => {
 	return (
 		<Web3ContextProvider>
 			<WagmiConfig client={wagmiClient}>
-				<RainbowKitProvider chains={chains} theme={darkTheme()}>
+				<RainbowKitProvider
+					chains={chains}
+					theme={darkTheme({
+						accentColor: "#2E443B",
+					})}
+				>
 					<div className="min-h-screen relative">
 						<Header />
 						<Routes>
