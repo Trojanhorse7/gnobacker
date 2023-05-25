@@ -5,7 +5,7 @@ import DeleteProject from '../components/DeleteProject'
 import ProjectBackers from '../components/ProjectBackers'
 import ProjectDetails from '../components/ProjectDetails'
 import UpdateProject from '../components/UpdateProject'
-import { getBackers, loadProject } from '../services/blockchain'
+import { useWeb3 } from "../services/useWeb3"
 import { useGlobalState } from '../store'
 
 const Project = () => {
@@ -14,11 +14,14 @@ const Project = () => {
   const [project] = useGlobalState('project')
   const [backers] = useGlobalState('backers')
 
+  const { getBackers, loadProject } = useWeb3();
+
   useEffect(async () => {
     await loadProject(id)
     await getBackers(id)
     setLoaded(true)
   }, [])
+  
   return loaded ? (
     <>
       <ProjectDetails project={project} />
