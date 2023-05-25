@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { truncate, daysRemaining } from '../store'
 import { FaEthereum } from 'react-icons/fa'
+import { useGlobalState } from "../store/";
 
-const Projects = ({ projects }) => {
+const Projects = () => {
+  const [projects] = useGlobalState("projects");
   const [end, setEnd] = useState(4)
   const [count] = useState(4)
   const [collection, setCollection] = useState([])
