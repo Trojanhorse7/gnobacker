@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { updateProject } from '../services/blockchain'
+import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from '../store'
 
 const UpdateProject = ({ project }) => {
@@ -10,6 +10,8 @@ const UpdateProject = ({ project }) => {
   const [description, setDescription] = useState(project?.description)
   const [date, setDate] = useState(project?.date)
   const [imageURL, setImageURL] = useState(project?.imageURL)
+
+   const { updateProject } = useWeb3();
 
   const toTimestamp = (dateStr) => {
     const dateObj = Date.parse(dateStr)
