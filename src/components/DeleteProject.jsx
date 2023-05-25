@@ -1,14 +1,16 @@
 import { FaTimes } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { deleteProject } from '../services/blockchain'
+import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from '../store'
 
 const DeleteProject = ({ project }) => {
   const [deleteModal] = useGlobalState('deleteModal')
   const navigate = useNavigate()
+  const { deleteProject } = useWeb3();
 
   const handleSubmit = async () => {
+
     await deleteProject(project?.id)
     toast.success('Project deleted successfully, will reflect in 30sec.')
     setGlobalState('deleteModal', 'scale-0')
