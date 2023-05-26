@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { setGlobalState, useGlobalState } from "../store";
 import { CgAddR } from "react-icons/cg";
+import { MdDashboard } from "react-icons/md";
+import { HiUserGroup } from "react-icons/hi";
+import { GiTwoCoins } from "react-icons/gi";
 
 const Hero = () => {
 	const [stats] = useGlobalState("stats");
-  
+
 	return (
 		<div className="text-center bg-green1 text-white py-[7rem] px-6">
 			<h1
 				className=" flex flex-col gap-1 text-5xl md:text-6xl xl:text-7xl font-bold
-      tracking-tight mb-5"
+    tracking-tight mb-5"
 			>
 				<span className="capitalize leading-tight">
 					Empowering Crowdfunding on{" "}
@@ -39,46 +42,40 @@ const Hero = () => {
 				>
 					Add Project
 				</button>
-				<CgAddR className="inline text-lg" />
+				<CgAddR className="inline text-lg"/>
 			</div>
 
 			<div className=" flex justify-center items-center w-[100%]">
-				<div className="flex justify-center items-center mt-10 font-['Montserrat Alternates'] w-[80%]">
+				<div className="flex justify-center items-center mt-10 font-['Montserrat Alternates'] w-[80%] ">
 					<div
 						className="flex flex-col justify-center items-center
-            h-20 border shadow-md w-full"
+            h-20 border shadow-md w-full gap-1 bg-green-200 rounded-l-[12px]"
 					>
-						<span
-							className="text-lg font-bold text-green-900
-              leading-5"
-						>
-							{stats?.totalProjects || 0}
+						<MdDashboard className="inline text-[1.5rem] text-green-600" />
+						<span className="text-lg max-[770px]:text-sm font-bold leading-5 text-red1">
+							{stats?.totalProjects || 0} Projects
 						</span>
-						<span>Projects</span>
 					</div>
 					<div
 						className="flex flex-col justify-center items-center
-            h-20 border shadow-md w-full"
+            h-[5.5rem] w-full gap-1 bg-green-600 rounded-md shadow-xl shadow-green-500/50"
 					>
-						<span
-							className="text-lg font-bold text-green-900
-              leading-5"
-						>
-							{stats?.totalBacking || 0}
+						<HiUserGroup className="inline text-[1.5rem] text-green-200" />
+						<span className="text-lg max-[770px]:text-sm font-bold leading-5 text-white">
+							{stats?.totalBacking || 0} Backings
 						</span>
-						<span>Backings</span>
 					</div>
 					<div
 						className="flex flex-col justify-center items-center
-            h-20 border shadow-md w-full"
+            h-20 border shadow-md w-full gap-1 bg-green-200 rounded-r-[12px]"
 					>
+						<GiTwoCoins className="inline text-[1.5rem] text-green-600" />
 						<span
-							className="text-lg font-bold text-green-900
-              leading-5"
+							className="text-lg max-[770px]:text-sm font-bold text-green-900
+            leading-5"
 						>
-							{stats?.totalDonations || 0} ETH
+							{stats?.totalDonations || 0} GNO Donated
 						</span>
-						<span>Donated</span>
 					</div>
 				</div>
 			</div>
