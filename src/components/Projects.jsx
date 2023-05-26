@@ -7,8 +7,8 @@ import { useGlobalState } from "../store/";
 
 const Projects = () => {
   const [projects] = useGlobalState("projects");
-  const [end, setEnd] = useState(4)
-  const [count] = useState(4)
+  const [end, setEnd] = useState(3)
+  const [count] = useState(3)
   const [collection, setCollection] = useState([])
 
   const getCollection = () => projects.slice(0, end)
@@ -18,7 +18,7 @@ const Projects = () => {
   }, [projects, end])
 
   return (
-    <div className="flex flex-col px-6 mb-7">
+    <div className="flex flex-col px-9 mb-7 width-[100%] bg-green-700">
       <div className="flex justify-center items-center flex-wrap">
         {collection.map((project, i) => (
           <ProjectCard key={i} project={project} />
