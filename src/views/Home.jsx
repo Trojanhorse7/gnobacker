@@ -4,8 +4,7 @@ import CreateProject from "../components/CreateProject";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import { useWeb3 } from "../services/useWeb3";
-import { useGlobalState, setGlobalState } from "../store";
-import {fetchSigner} from "@wagmi/core";
+import Faqs from "../components/Faqs/Faqs";
 
 const Home = () => {
 	const { loadProjects } = useWeb3();
@@ -15,12 +14,13 @@ const Home = () => {
 	}, []);
 
 	return (
-		<>
+		<div className="bg-green1">
 			<Hero />
 			<Projects />
 			<CreateProject />
 			<AddButton />
-		</>
+			<Faqs />
+		</div>
 	);
 };
 
