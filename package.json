@@ -14,6 +14,7 @@
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@rainbow-me/rainbowkit": "0.8.1",
     "@rize-labs/banana-rainbowkit-plugin": "^1.0.12",
+    "babel": "^6.23.0",
     "constants-browserify": "^1.0.0",
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.7.2",
@@ -35,7 +36,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
+    "@babel/plugin-proposal-private-property-in-object": "7.10.0",
     "@nomicfoundation/hardhat-verify": "^1.0.0",
     "@openzeppelin/contracts": "^4.5.0",
     "@tailwindcss/forms": "0.4.0",
@@ -47,6 +48,10 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.26.0",
+    "@babel/core": "^7.10.1",
+    "@babel/node": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/preset-react": "^7.10.1",
     "buffer": "^6.0.3",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
