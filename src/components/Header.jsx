@@ -11,8 +11,7 @@ const Header = () => {
 			<div className="w-[80%] max-[700px]:w-[100%] flex justify-between items-center">
 				<Link
 					to="/"
-					className="flex justify-start items-center
-      text-xl text-black space-x-1"
+					className="flex justify-start items-center text-xl text-black space-x-1"
 				>
 					<img src={fullLogo} alt="Logo" className="h-[3rem]" />
 				</Link>
