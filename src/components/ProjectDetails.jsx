@@ -1,25 +1,23 @@
-import React, {useEffect, useState } from "react";
+import React from "react";
 import Identicons from "react-identicons";
 import { FaEthereum } from "react-icons/fa";
 import {
 	daysRemaining,
 	setGlobalState,
 	truncate,
-	useGlobalState,
 } from "../store";
 import { useWeb3 } from "../services/useWeb3";
 import { getAccount } from "@wagmi/core";
 
 const ProjectDetails = ({ project }) => {
 	const expired = new Date().getTime() > Number(project?.expiresAt + "000");
-  
 	const account = getAccount();
-  const connectedAccount = account.address.toLowerCase();
-  setGlobalState("connectedAccount", connectedAccount);
+	const connectedAccount = account.address.toLowerCase();
+	setGlobalState("connectedAccount", connectedAccount);
 	const { payoutProject } = useWeb3();
 
 	return (
-		<div className="pt-24 mb-5 px-6 flex justify-center">
+		<div className="pt-24 mb-5 px-6 flex justify-center text-green-200">
 			<div className="flex justify-center flex-col md:w-2/3">
 				<div
 					className="flex justify-start items-start
@@ -33,10 +31,10 @@ const ProjectDetails = ({ project }) => {
 
 					<div className="flex-1 sm:py-0 py-4">
 						<div className="flex flex-col justify-start flex-wrap">
-							<h5 className="text-gray-900 text-xl font-medium mb-2">
+							<h5 className="text-white text-xl font-medium mb-2">
 								{project?.title}
 							</h5>
-							<small className="text-gray-500">
+							<small className="text-white">
 								{expired
 									? "Expired"
 									: daysRemaining(project.expiresAt) + " left"}
@@ -51,11 +49,11 @@ const ProjectDetails = ({ project }) => {
 									size={15}
 								/>
 								{project?.owner ? (
-									<small className="text-gray-700">
+									<small className="text-white">
 										{truncate(project?.owner, 4, 4, 11)}
 									</small>
 								) : null}
-								<small className="text-gray-500 font-bold">
+								<small className="text-white font-bold">
 									{project?.backers} Backer{project?.backers == 1 ? "" : "s"}
 								</small>
 							</div>
@@ -91,10 +89,10 @@ const ProjectDetails = ({ project }) => {
 							</div>
 
 							<div className="flex justify-between items-center font-bold mt-2">
-								<small>{project?.raised} GNO Raised</small>
+								<small>{project?.raised} xDAI Raised</small>
 								<small className="flex justify-start items-center">
 									<FaEthereum />
-									<span>{project?.cost} GNO</span>
+									<span>{project?.cost} xDAI</span>
 								</small>
 							</div>
 

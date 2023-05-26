@@ -96,17 +96,17 @@ const App = () => {
 						accentColor: "#2E443B",
 					})}
 				>
-					<div className="min-h-screen relative">
+					<div className="min-h-screen relative bg-green1">
 						<Header />
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/projects/:id" element={<Project />} />
 						</Routes>
 						<ToastContainer
-							position="bottom-center"
+							position="top-right"
 							autoClose={5000}
 							hideProgressBar={false}
-							newestOnTop={false}
+							newestOnTop
 							closeOnClick
 							rtl={false}
 							pauseOnFocusLoss

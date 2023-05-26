@@ -42,7 +42,7 @@ const Hero = () => {
 				>
 					Add Project
 				</button>
-				<CgAddR className="inline text-lg"/>
+				<CgAddR className="inline text-lg" />
 			</div>
 
 			<div className=" flex justify-center items-center w-[100%]">
@@ -74,7 +74,7 @@ const Hero = () => {
 							className="text-lg max-[770px]:text-sm font-bold text-green-900
             leading-5"
 						>
-							{stats?.totalDonations || 0} GNO Donated
+							{stats?.totalDonations || 0} xDAI Donated
 						</span>
 					</div>
 				</div>

@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import { useWeb3 } from "../services/useWeb3";
 import Faqs from "../components/Faqs/Faqs";
+import Footer from "../components/Footer";
 
 const Home = () => {
 	const { loadProjects } = useWeb3();
@@ -14,13 +15,16 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div className="bg-green1">
+		<>
 			<Hero />
 			<Projects />
 			<CreateProject />
 			<AddButton />
 			<Faqs />
-		</div>
+			<div className="flex justify-center items-center p-5 h-[3.5rem] bg-green-200 mt-2 shadow-lg py-[0.8rem] w-[100%]">
+				<p>. GNOBACKER . 2023 .</p>
+			</div>
+		</>
 	);
 };
 

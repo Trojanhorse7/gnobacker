@@ -10,7 +10,7 @@ const ProjectBackers = ({ backers }) => {
         className="max-h-[calc(100vh_-_25rem)] overflow-y-auto
         shadow-md rounded-md w-full mb-10"
       >
-        <table className="min-w-full">
+        <table className="min-w-full text-green-200">
           <thead className="border-b">
             <tr>
               <th
@@ -55,7 +55,7 @@ const ProjectBackers = ({ backers }) => {
 }
 
 const Backer = ({ backer }) => (
-  <tr className="border-b border-gray-200">
+  <tr className="border-b border-gray-200 text-white">
     <td
       className="text-sm font-light
       px-6 py-4 whitespace-nowrap"
@@ -75,8 +75,8 @@ const Backer = ({ backer }) => (
     >
       <small className="flex justify-start items-center space-x-1">
         <FaEthereum />
-        <span className="text-gray-700 font-medium">
-          {backer.contribution} ETH
+        <span className="font-medium">
+          {backer.contribution} xDai
         </span>
       </small>
     </td>

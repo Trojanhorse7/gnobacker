@@ -24,7 +24,7 @@ const DeleteProject = ({ project }) => {
     transform transition-transform duration-300 ${deleteModal}`}
     >
       <div
-        className="bg-white shadow-xl shadow-black
+        className="bg-green-200 shadow-xl shadow-black
         rounded-xl w-11/12 md:w-2/5 h-7/12 p-6"
       >
         <div className="flex flex-col">

@@ -51,7 +51,7 @@ const CreateProject = () => {
 
 	return (
 		<div
-			className={`fixed top-0 left-0 w-screen h-screen flex
+			className={`z-10 fixed top-0 left-0 w-screen h-screen flex
     items-center justify-center bg-black bg-opacity-50
     transform transition-transform duration-300 ${createModal}`}
 		>
@@ -113,7 +113,7 @@ const CreateProject = () => {
 							step={0.01}
 							min={0.01}
 							name="cost"
-							placeholder="cost (ETH)"
+							placeholder="cost (xDAI)"
 							onChange={(e) => setCost(e.target.value)}
 							value={cost}
 							required
