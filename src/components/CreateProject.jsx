@@ -3,6 +3,8 @@ import { FaTimes } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
+import { getAccount } from "@wagmi/core";
+import { FcAddImage } from "react-icons/fc";
 
 const CreateProject = () => {
 	const [createModal] = useGlobalState("createModal");
@@ -20,20 +22,26 @@ const CreateProject = () => {
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDefault();
-		if (!title || !description || !cost || !date || !imageURL) return;
+		const userAccount = getAccount();
+		if (userAccount.isDisconnected) {
+			toast.info("Connect your Wallet");
+			navigate("/");
+		} else {
+			e.preventDefault();
+			if (!title || !description || !cost || !date || !imageURL) return;
 
-		const params = {
-			title,
-			description,
-			cost,
-			expiresAt: toTimestamp(date),
-			imageURL,
-		};
+			const params = {
+				title,
+				description,
+				cost,
+				expiresAt: toTimestamp(date),
+				imageURL,
+			};
 
-		await createProject(params);
-		toast.success("Project created successfully, will reflect in 30sec.");
-		onClose();
+			await createProject(params);
+			toast.success("Project Created, will reflect if User doesn't Reject");
+			onClose();
+		}
 	};
 
 	const onClose = () => {
@@ -73,14 +81,16 @@ const CreateProject = () => {
 
 					<div className="flex justify-center items-center mt-5">
 						<div className="rounded-xl overflow-hidden h-20 w-20">
-							<img
+							{ imageURL === "" ?
+								<FcAddImage className="h-20 w-20" /> 
+							: <img
 								src={
 									imageURL ||
 									"https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
 								}
 								alt="project title"
 								className="h-full w-full object-cover cursor-pointer"
-							/>
+							/>}
 						</div>
 					</div>
 

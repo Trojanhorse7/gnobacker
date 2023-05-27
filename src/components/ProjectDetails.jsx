@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Identicons from "react-identicons";
 import { FaEthereum } from "react-icons/fa";
 import {
@@ -12,9 +12,16 @@ import { getAccount } from "@wagmi/core";
 const ProjectDetails = ({ project }) => {
 	const expired = new Date().getTime() > Number(project?.expiresAt + "000");
 	const account = getAccount();
-	const connectedAccount = account.address.toLowerCase();
+	const connectedAccount = account?.address?.toLowerCase();
 	setGlobalState("connectedAccount", connectedAccount);
 	const { payoutProject } = useWeb3();
+
+	useEffect(async () => {
+		if (account.isDisconnected) {
+			toast.info("Connect your Wallet");
+			navigate("/");
+		}
+	}, [account.isDisconnected]);
 
 	return (
 		<div className="pt-24 mb-5 px-6 flex justify-center text-green-200">

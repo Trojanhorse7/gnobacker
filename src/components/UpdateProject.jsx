@@ -1,45 +1,52 @@
-import { useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
-import { toast } from 'react-toastify'
+import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useWeb3 } from "../services/useWeb3";
-import { useGlobalState, setGlobalState } from '../store'
+import { useGlobalState, setGlobalState } from "../store";
+import { getAccount } from "@wagmi/core";
 
 const UpdateProject = ({ project }) => {
-  const [updateModal] = useGlobalState('updateModal')
-  const [title, setTitle] = useState(project?.title)
-  const [description, setDescription] = useState(project?.description)
-  const [date, setDate] = useState(project?.date)
-  const [imageURL, setImageURL] = useState(project?.imageURL)
+	const [updateModal] = useGlobalState("updateModal");
+	const [title, setTitle] = useState(project?.title);
+	const [description, setDescription] = useState(project?.description);
+	const [date, setDate] = useState(project?.date);
+	const [imageURL, setImageURL] = useState(project?.imageURL);
 
-   const { updateProject } = useWeb3();
+	const { updateProject } = useWeb3();
 
-  const toTimestamp = (dateStr) => {
-    const dateObj = Date.parse(dateStr)
-    return dateObj / 1000
-  }
+	const toTimestamp = (dateStr) => {
+		const dateObj = Date.parse(dateStr);
+		return dateObj / 1000;
+	};
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!title || !description || !date || !imageURL) return
+	const handleSubmit = async (e) => {
+		const userAccount = getAccount();
+		if (userAccount.isDisconnected) {
+			toast.info("Connect your Wallet");
+			navigate("/");
+		} else {
+			e.preventDefault();
+			if (!title || !description || !date || !imageURL) return;
 
-    const params = {
-      id: project?.id,
-      title,
-      description,
-      expiresAt: toTimestamp(date),
-      imageURL,
-    }
+			const params = {
+				id: project?.id,
+				title,
+				description,
+				expiresAt: toTimestamp(date),
+				imageURL,
+			};
+		
+			await updateProject(params);
+			toast.success("Project updated, will reflect if User doesn't Reject");
+			onClose();
+		}
+	};
 
-    await updateProject(params)
-    toast.success('Project updated successffully, will reflect in 30sec.')
-    onClose()
-  }
+	const onClose = () => {
+		setGlobalState("updateModal", "scale-0");
+	};
 
-  const onClose = () => {
-    setGlobalState('updateModal', 'scale-0')
-  }
-
-  return (
+	return (
 		<div
 			className={`fixed top-0 left-0 w-screen h-screen flex
     items-center justify-center bg-black bg-opacity-50
@@ -154,6 +161,6 @@ const UpdateProject = ({ project }) => {
 			</div>
 		</div>
 	);
-}
+};
 
-export default UpdateProject
+export default UpdateProject;

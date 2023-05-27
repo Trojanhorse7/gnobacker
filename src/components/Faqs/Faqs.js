@@ -6,30 +6,30 @@ const data = {
 	title: "FAQ",
 	rows: [
 		{
-			title: "What is GnoBacker?",
+			title: "What is GnoBackers?",
 			content:
-				"GnoBacker is a crowdfunding platform powered by the Gnosis protocol, offering decentralized fundraising for creators and a transparent experience for backers.",
+				"GnoBackers is a crowdfunding platform powered by the Gnosis protocol, offering decentralized fundraising for creators and a transparent experience for backers.",
 		},
 		{
-			title: "How does GnoBacker work?",
-			content: `GnoBacker uses smart contracts on Gnosis to enable creators to launch projects, set funding goals, and offer rewards. Backers contribute funds directly through the platform, and once the goal is reached, funds are released to the creator.`,
+			title: "How does GnoBackers work?",
+			content: `GnoBackers uses smart contracts on Gnosis to enable creators to launch projects, set funding goals, and offer rewards. Backers contribute funds directly through the platform, and once the goal is reached, funds are released to the creator.`,
 		},
 		{
-			title: "Why choose GnoBacker over traditional platforms?",
+			title: "Why choose GnoBackers over traditional platforms?",
 			content:
-				"GnoBacker offers transparency, security, and advanced features through its integration with Gnosis, providing a decentralized crowdfunding experience.",
+				"GnoBackers offers transparency, security, and advanced features through its integration with Gnosis, providing a decentralized crowdfunding experience.",
 		},
 		{
-			title: "How secure is GnoBacker?",
-			content: `GnoBacker prioritizes security by utilizing smart contracts and blockchain technology, minimizing the risk of fraud or misappropriation.`,
+			title: "How secure is GnoBackers?",
+			content: `GnoBackers prioritizes security by utilizing smart contracts and blockchain technology, minimizing the risk of fraud or misappropriation.`,
 		},
 		{
-			title: "Can anyone launch a project on GnoBacker?",
-			content: `GnoBacker welcomes creators from diverse domains, providing an inclusive platform for entrepreneurs and individuals to showcase their projects and raise funds.`,
+			title: "Can anyone launch a project on GnoBackers?",
+			content: `GnoBackers welcomes creators from diverse domains, providing an inclusive platform for entrepreneurs and individuals to showcase their projects and raise funds.`,
 		},
 		{
-			title: "How can I become a backer on GnoBacker?",
-			content: `To back a project on GnoBacker, simply browse available projects, choose the ones you wish to support, and contribute funds through the user-friendly interface.`,
+			title: "How can I become a backer on GnoBackers?",
+			content: `To back a project on GnoBackers, simply browse available projects, choose the ones you wish to support, and contribute funds through the user-friendly interface.`,
 		},
 		{
 			title: "What happens if a project doesn't reach its funding goal?",

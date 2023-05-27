@@ -1,23 +1,23 @@
-import Identicons from 'react-identicons'
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { truncate, daysRemaining } from '../store'
-import { FaEthereum } from 'react-icons/fa'
+import Identicons from "react-identicons";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { truncate, daysRemaining } from "../store";
+import { FaEthereum } from "react-icons/fa";
 import { useGlobalState } from "../store/";
 
 const Projects = () => {
-  const [projects] = useGlobalState("projects");
-  const [end, setEnd] = useState(3)
-  const [count] = useState(3)
-  const [collection, setCollection] = useState([])
+	const [projects] = useGlobalState("projects");
+	const [end, setEnd] = useState(3);
+	const [count] = useState(3);
+	const [collection, setCollection] = useState([]);
 
-  const getCollection = () => projects.slice(0, end)
+	const getCollection = () => projects.slice(0, end);
 
-  useEffect(() => {
-    setCollection(getCollection())
-  }, [projects, end])
+	useEffect(() => {
+		setCollection(getCollection());
+	}, [projects, end]);
 
-  return (
+	return (
 		<div className="flex flex-col px-9 mb-7 width-[100%] bg-green-800 border-y-4 border-double drop-shadow-xl border-green-200">
 			<div className="flex justify-center items-center flex-wrap">
 				{collection.map((project, i) => (
@@ -40,12 +40,12 @@ const Projects = () => {
 			) : null}
 		</div>
 	);
-}
+};
 
 const ProjectCard = ({ project }) => {
-  const expired = new Date().getTime() > Number(project?.expiresAt + '000')
+	const expired = new Date().getTime() > Number(project?.expiresAt + "000");
 
-  return (
+	return (
 		<div
 			id="projects"
 			className="rounded-md shadow-lg bg-green-200 w-[20rem] m-4"
@@ -124,6 +124,6 @@ const ProjectCard = ({ project }) => {
 			</Link>
 		</div>
 	);
-}
+};
 
-export default Projects
+export default Projects;

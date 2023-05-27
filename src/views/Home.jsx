@@ -22,7 +22,7 @@ const Home = () => {
 			<AddButton />
 			<Faqs />
 			<div className="flex justify-center items-center p-5 h-[3.5rem] bg-green-200 mt-2 shadow-lg py-[0.8rem] w-[100%]">
-				<p>. GNOBACKER . 2023 .</p>
+				<p>. GNOBACKERS . 2023 .</p>
 			</div>
 		</>
 	);

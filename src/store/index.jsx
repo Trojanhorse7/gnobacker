@@ -9,6 +9,7 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
   connectedAccount: '',
   contract: {},
   signer: {},
+  txStatus: "",
   projects: [],
   project: null,
   stats: null,

@@ -1,25 +1,33 @@
-import { useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
-import { toast } from 'react-toastify'
+import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
+import { toast } from "react-toastify";
 import { useWeb3 } from "../services/useWeb3";
-import { useGlobalState, setGlobalState } from '../store'
+import { useGlobalState, setGlobalState } from "../store";
+import { getAccount } from "@wagmi/core";
+import { useNavigate } from "react-router-dom";
 
 const BackProject = ({ project }) => {
-  const [backModal] = useGlobalState('backModal')
-  const [amount, setAmount] = useState('')
-  const { backProject } = useWeb3();
+	const [backModal] = useGlobalState("backModal");
+	const [amount, setAmount] = useState("");
+	const [txStatus] = useGlobalState("txStatus");
+	const { backProject } = useWeb3();
+	const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!amount) return
+	const handleSubmit = async (e) => {
+		const userAccount = getAccount();
+		if (userAccount.isDisconnected) {
+			toast.info("Connect your Wallet");
+			navigate("/");
+		} else {
+			e.preventDefault();
+			if (!amount) return;
+			const backed = await backProject(project?.id, amount);
+			toast.success("Project backed, will reflect if User doesn't Reject");
+			setGlobalState("backModal", "scale-0");
+		}
+	};
 
-    const backed = await backProject(project?.id, amount)
-    console.log(backed);
-    toast.success('Project backed successfully, will reflect in 30sec.')
-    setGlobalState('backModal', 'scale-0')
-  }
-
-  return (
+	return (
 		<div
 			className={`fixed top-0 left-0 w-screen h-screen flex
     items-center justify-center bg-black bg-opacity-50
@@ -85,6 +93,6 @@ const BackProject = ({ project }) => {
 			</div>
 		</div>
 	);
-}
+};
 
-export default BackProject
+export default BackProject;
