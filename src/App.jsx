@@ -73,7 +73,7 @@ const connectors = connectorsForWallets([
 	{
 		groupName: "Recommended",
 		wallets: [
-			BananaWallet({ chains, connect: { networkId: 10200 } }),
+			BananaWallet({ chains, connect: { networkId: 100 } }),
 			metaMaskWallet({ chains, shimDisconnect: true }),
 		],
 	},
