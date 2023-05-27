@@ -5,6 +5,7 @@ import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
 import { getAccount } from "@wagmi/core";
 import { FcAddImage } from "react-icons/fc";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const CreateProject = () => {
 	const [createModal] = useGlobalState("createModal");
@@ -13,6 +14,7 @@ const CreateProject = () => {
 	const [cost, setCost] = useState("");
 	const [date, setDate] = useState("");
 	const [imageURL, setImageURL] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	const { createProject } = useWeb3();
 
@@ -24,8 +26,8 @@ const CreateProject = () => {
 	const handleSubmit = async (e) => {
 		const userAccount = getAccount();
 		if (userAccount.isDisconnected) {
+			e.preventDefault();
 			toast.info("Connect your Wallet");
-			navigate("/");
 		} else {
 			e.preventDefault();
 			if (!title || !description || !cost || !date || !imageURL) return;
@@ -37,8 +39,9 @@ const CreateProject = () => {
 				expiresAt: toTimestamp(date),
 				imageURL,
 			};
-
+			setLoading(true)
 			await createProject(params);
+			setLoading(false)
 			toast.success("Project Created, will reflect if User doesn't Reject");
 			onClose();
 		}
@@ -81,16 +84,18 @@ const CreateProject = () => {
 
 					<div className="flex justify-center items-center mt-5">
 						<div className="rounded-xl overflow-hidden h-20 w-20">
-							{ imageURL === "" ?
-								<FcAddImage className="h-20 w-20" /> 
-							: <img
-								src={
-									imageURL ||
-									"https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
-								}
-								alt="project title"
-								className="h-full w-full object-cover cursor-pointer"
-							/>}
+							{imageURL == "" ? (
+								<FcAddImage className="h-20 w-20" />
+							) : (
+								<img
+									src={
+										imageURL ||
+										"https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
+									}
+									alt="project title"
+									className="h-full w-full object-cover cursor-pointer"
+								/>
+							)}
 						</div>
 					</div>
 
@@ -183,11 +188,20 @@ const CreateProject = () => {
 
 					<button
 						type="submit"
-						className="inline-block px-6 py-2.5 bg-green-600
+						className=" flex justify-center items-center px-6 py-2.5 bg-green-600
             text-white font-medium text-md leading-tight
             rounded-full shadow-md hover:bg-green-700 mt-5"
 					>
-						Submit Project
+						{loading ? (
+							<BeatLoader
+								color={"rgb(187,247,208)"}
+								loading={loading}
+								size={13}
+								speedMultiplier={2}
+							/>
+						) : (
+							<p>Submit Project</p>
+						)}
 					</button>
 				</form>
 			</div>

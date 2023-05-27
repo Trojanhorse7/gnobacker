@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
 import { getAccount } from "@wagmi/core";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const UpdateProject = ({ project }) => {
 	const [updateModal] = useGlobalState("updateModal");
@@ -11,7 +12,7 @@ const UpdateProject = ({ project }) => {
 	const [description, setDescription] = useState(project?.description);
 	const [date, setDate] = useState(project?.date);
 	const [imageURL, setImageURL] = useState(project?.imageURL);
-
+	const [loading, setLoading] = useState(false);
 	const { updateProject } = useWeb3();
 
 	const toTimestamp = (dateStr) => {
@@ -35,8 +36,9 @@ const UpdateProject = ({ project }) => {
 				expiresAt: toTimestamp(date),
 				imageURL,
 			};
-		
+			setLoading(true);
 			await updateProject(params);
+			setLoading(false);
 			toast.success("Project updated, will reflect if User doesn't Reject");
 			onClose();
 		}
@@ -155,7 +157,16 @@ const UpdateProject = ({ project }) => {
             text-white font-medium text-md leading-tight
             rounded-full shadow-md hover:bg-green-700 mt-5"
 					>
-						Update Project
+						{loading ? (
+							<BeatLoader
+								color={"rgb(187,247,208)"}
+								loading={loading}
+								size={13}
+								speedMultiplier={2}
+							/>
+						) : (
+							<p>Update Project</p>
+						)}
 					</button>
 				</form>
 			</div>

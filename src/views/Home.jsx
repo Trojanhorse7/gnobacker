@@ -5,7 +5,6 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import { useWeb3 } from "../services/useWeb3";
 import Faqs from "../components/Faqs/Faqs";
-import Footer from "../components/Footer";
 
 const Home = () => {
 	const { loadProjects } = useWeb3();

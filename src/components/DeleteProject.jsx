@@ -1,19 +1,24 @@
+import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const DeleteProject = ({ project }) => {
 	const [deleteModal] = useGlobalState("deleteModal");
 	const [txStatus] = useGlobalState("txStatus");
 	const navigate = useNavigate();
 	const { deleteProject } = useWeb3();
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async () => {
+		setLoading(true);
 		await deleteProject(project?.id);
 		toast.success("Project Deleted, will reflect if User doesn't Reject");
 		setGlobalState("deleteModal", "scale-0");
+		setLoading(false);
 		navigate("/");
 	};
 
@@ -63,7 +68,16 @@ const DeleteProject = ({ project }) => {
             rounded-full shadow-md hover:bg-red-700 mt-5"
 						onClick={handleSubmit}
 					>
-						Delete Project
+						{loading ? (
+							<BeatLoader
+								color={"rgb(187,247,208)"}
+								loading={loading}
+								size={13}
+								speedMultiplier={2}
+							/>
+						) : (
+							<p>Delete Project</p>
+						)}
 					</button>
 				</div>
 			</div>

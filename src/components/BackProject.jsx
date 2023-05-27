@@ -5,13 +5,14 @@ import { useWeb3 } from "../services/useWeb3";
 import { useGlobalState, setGlobalState } from "../store";
 import { getAccount } from "@wagmi/core";
 import { useNavigate } from "react-router-dom";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const BackProject = ({ project }) => {
 	const [backModal] = useGlobalState("backModal");
 	const [amount, setAmount] = useState("");
-	const [txStatus] = useGlobalState("txStatus");
 	const { backProject } = useWeb3();
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		const userAccount = getAccount();
@@ -21,7 +22,11 @@ const BackProject = ({ project }) => {
 		} else {
 			e.preventDefault();
 			if (!amount) return;
-			const backed = await backProject(project?.id, amount);
+
+			setLoading(true);
+			await backProject(project?.id, amount);
+			setLoading(false);
+
 			toast.success("Project backed, will reflect if User doesn't Reject");
 			setGlobalState("backModal", "scale-0");
 		}
@@ -87,7 +92,16 @@ const BackProject = ({ project }) => {
             text-white font-medium text-md leading-tight
             rounded-full shadow-md hover:bg-green-700 mt-5"
 					>
-						Back Project
+						{loading ? (
+							<BeatLoader
+								color={"rgb(187,247,208)"}
+								loading={loading}
+								size={13}
+								speedMultiplier={2}
+							/>
+						) : (
+							<p>Back Project</p>
+						)}
 					</button>
 				</form>
 			</div>

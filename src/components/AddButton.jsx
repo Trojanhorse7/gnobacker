@@ -3,7 +3,7 @@ import { BsPlusLg } from 'react-icons/bs'
 
 const AddButton = () => {
   return (
-    <div className="fixed right-6 bottom-10 flex space-x-2 justify-center">
+    <div className="fixed right-6 bottom-10 z-10 flex space-x-2 justify-center">
       <button
         type="button"
         className="flex justify-center items-center w-9 h-9 bg-green-600
