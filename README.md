@@ -2,6 +2,9 @@
 
 Welcome to the Gnobackers project! Gnobackers is a decentralized crowdfunding platform built on the Gnosis Blockchain, leveraging technologies such as React, Solidity, Gateway RPC, and Banana Wallet. This README file will guide you through the project and provide an overview of its key components and how they were utilized.
 
+## SITE LINK
+https://gnobackers.netlify.app/
+
 ## Table of Contents
 - [Introduction](#introduction)
 - [Technologies Used](#technologies-used)
