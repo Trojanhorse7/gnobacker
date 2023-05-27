@@ -19,7 +19,7 @@ module.exports = {
   mocha: {
     timeout: 40000,
   },
-  defaultNetwork: "chiado",
+  defaultNetwork: "gnosis",
   networks: {
     hardhat: {
     },

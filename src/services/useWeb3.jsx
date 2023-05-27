@@ -11,7 +11,7 @@ export const Web3ContextProvider = ({ children }) => {
 	const account = getAccount();
 	const connectedAddress = account.address;
 	setGlobalState("connectedAccount", connectedAddress?.toLowerCase());
-	const contractAddress = "0xA8C1bD140c79d2691F81De4288dEB6f96df035D9";
+	const contractAddress = "0x9a322144C0B4bFdb6008Fd378Ced49d040aF6Fd3";
 	const contractAbi = abi.abi;
 
 	const getEthereumContractProvider = async () => {
