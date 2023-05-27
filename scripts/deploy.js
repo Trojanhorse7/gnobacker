@@ -9,7 +9,13 @@ async function main() {
   await contract.deployed()
 
   const address = JSON.stringify({ address: contract.address }, null, 4) 
-  console.log('Deployed contract address', address)
+  fs.writeFile('./src/abis/contractAddress.json', address, 'utf8', (err) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+    console.log('Deployed contract address', contract.address)
+  })
 }
 
 main().catch((error) => {

@@ -15,7 +15,7 @@ const Hero = () => {
     tracking-tight mb-5"
 			>
 				<span className="capitalize leading-tight">
-					Empowering Crowdfunding on{" "}
+					Empowering Crowdfunding on
 				</span>
 				<span className="text-green-600 py-[0.5rem]">GNOSIS</span>
 			</h1>

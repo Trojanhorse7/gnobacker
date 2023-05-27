@@ -11,34 +11,47 @@ const Projects = () => {
 	const [count] = useState(3);
 	const [collection, setCollection] = useState([]);
 
-	const getCollection = () => projects.slice(0, end);
+	const getCollection = () => projects?.slice(0, end);
 
 	useEffect(() => {
 		setCollection(getCollection());
 	}, [projects, end]);
 
 	return (
-		<div className="flex flex-col px-9 mb-7 width-[100%] bg-green-800 border-y-4 border-double drop-shadow-xl border-green-200">
-			<div className="flex justify-center items-center flex-wrap">
-				{collection.map((project, i) => (
-					<ProjectCard key={i} project={project} />
-				))}
-			</div>
-
-			{projects.length > collection.length ? (
-				<div className="flex justify-center items-center my-5">
-					<button
-						type="button"
-						className="inline-block px-6 py-2.5 bg-green-200
-          text-red1 font-medium text-xs leading-tight uppercase
-          rounded-full shadow-md hover:bg-green-400"
-						onClick={() => setEnd(end + count)}
+		<>
+			<div className="flex flex-col px-9 mb-7 width-[100%] bg-green-800 border-y-4 border-double drop-shadow-xl border-green-200">
+				{projects.length < 1 ? (
+					<h1
+						className=" flex text-5xl items-center justify-center md:text-6xl xl:text-7xl font-bold
+							capitalize my-2 text-green-200"
 					>
-						Load more
-					</button>
-				</div>
-			) : null}
-		</div>
+						NO PROJECT CREATED
+					</h1>
+				) : (
+					<div>
+						<div className="flex justify-center items-center flex-wrap">
+							{collection.map((project, i) => (
+								<ProjectCard key={i} project={project} />
+							))}
+						</div>
+
+						{projects.length > collection.length ? (
+							<div className="flex justify-center items-center my-5">
+								<button
+									type="button"
+									className="inline-block px-6 py-2.5 bg-green-200
+						text-red1 font-medium text-xs leading-tight uppercase
+						rounded-full shadow-md hover:bg-green-400"
+									onClick={() => setEnd(end + count)}
+								>
+									Load more
+								</button>
+							</div>
+						) : null}
+					</div>
+				)}
+			</div>
+		</>
 	);
 };
 

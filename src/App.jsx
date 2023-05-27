@@ -24,7 +24,7 @@ const GnosisChain = {
 	},
 	rpcUrls: {
 		default:
-			"https://rpc.ap-southeast-1.gateway.fm/v4/gnosis/non-archival/mainnet",
+			"https://rpc.eu-central-2.gateway.fm/v4/gnosis/non-archival/mainnet",
 	},
 	blockExplorers: {
 		default: { name: "Blockscout", url: "https://gnosisscan.io/" },
@@ -45,7 +45,7 @@ const ChiadoChain = {
 		symbol: "xDai",
 	},
 	rpcUrls: {
-		default: "https://rpc.chiadochain.net",
+		default: "https://rpc.eu-central-2.gateway.fm/v3/gnosis/archival/chiado",
 	},
 	blockExplorers: {
 		default: {
@@ -60,7 +60,7 @@ const ChiadoChain = {
 };
 
 const { chains, provider } = configureChains(
-	[ChiadoChain],
+	[GnosisChain],
 	[
 		jsonRpcProvider({
 			rpc: (chain) => ({ http: chain.rpcUrls.default }),
